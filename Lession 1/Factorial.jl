@@ -10,3 +10,4 @@ function main()
     input = readline()
     println(Factorial(parse(Int64, input)))
 end
+main()
