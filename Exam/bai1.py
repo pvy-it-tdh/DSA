@@ -1,9 +1,15 @@
-num_list = [3, 4, 5, 1, -44 , 5 ,10, 12 ,33, 1]
-k=3
-start_index = list(range(0, len(num_list)-k+1))
-end_index = list(range(k, len(num_list)+1))
-result = []
-for start, end in zip(start_index, end_index):
-    sub_list = num_list[start:end]
-    result.append(max(sub_list))
-print(result)
+def lenvenshtein_distance(s1, s2):
+    if len(s1) > len(s2):
+        s1, s2 = s2, s1
+    distances = range(len(s1) + 1)
+    for i2, c2 in enumerate(s2):
+        distances_ = [i2+1]
+        for i1, c1 in enumerate(s1):
+            if c1 == c2:
+                distances_.append(distances[i1])
+            else:
+                distances_.append(1 + min((distances[i1], distances[i1 + 1], distances_[-1])))
+        distances = distances_
+    return distances[-1]
+assert(lenvenshtein_distance("hi","hello"))==4.0
+print(lenvenshtein_distance("hola","hello"))
